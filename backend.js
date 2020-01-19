@@ -13,6 +13,11 @@ var Movie = mongoose.model('movie', new mongoose.Schema({
     description: String
 }));
 
+var Comment = mongoose.model('comment', new mongoose.Schema({
+    content: String,
+    movieName: String
+}));
+
 app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
@@ -25,8 +30,27 @@ function obradiZahtjev(res) {
     });
 }
 
-app.get('/movie', function(req,res) {
-    res.render('movie');
+app.get('/movie/:ime', function(req,res) {
+    let movie = null;
+    let comments = [];
+
+    let result = Promise.all([
+        Movie.find({ title: req.params.ime }, function (err, movie) {
+            movie = movie;
+        }),
+        Comment.find({ movieName: req.params.ime }, function (err, comments) {
+            comments = comments;
+        })
+    ]).then(result => {
+        console.log(result);
+        res.render('movie', { movie: result[0][0], comments: result[1] });
+    })
+});
+
+app.post('/movie/:ime', function(req,res) {
+    Comment.insertMany([{ content: req.body.content, movieName: req.params.ime }], function (err, mongoRes) {
+        res.redirect('/movie/' + req.params.ime);
+    });
 });
 
 app.get('/addMovie', function (req,res) {

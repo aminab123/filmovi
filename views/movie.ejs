@@ -15,21 +15,27 @@
         <div class="card mb-3" style="max-width: 800px;">
           <div class="row no-gutters">
             <div class="col-md-4">
-              <img src="https://images-na.ssl-images-amazon.com/images/I/61MeTlsDRtL._SX341_BO1,204,203,200_.jpg" class="card-img" alt="...">
+              <img src="data:image/png;base64, <%= movie.img %>" class="card-img" alt="...">
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-film"></i> Schindler's List (1993)</h5>
-                <p class="card-text">In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.</p>
-                <div cla>
-                    <p>Ovaj film je dobar.</p>
+                <h5 class="card-title"><i class="fas fa-film"></i> <%= movie.title %> </h5>
+                <p class="card-text"><%= movie.description %></p>
+                <div>
+                  <h2>Comments</h2>
+                  <% comments.forEach(comment => { %>
+                    <p style="border: 1px solid;"><%= comment.content %></p>
+                  <% }) %>
                 </div>
+                <form action="" method="POST" enctype="multipart/form-data">
+                  <input id="komentar" type="text" name="content">
+                  <button type="submit"> Add Comment</button>
+                </form>
               </div>
             </div>
           </div>
         </div>
-        
-    </div>
+      </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
