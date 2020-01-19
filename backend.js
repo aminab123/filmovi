@@ -39,9 +39,8 @@ app.post('/addMovie', function (req, res) {
     });
 });
 
-app.get('/getAllMovis', function (req, res) {
-    //fetch all movies
-    
+app.get('*', function (req, res) {
+    res.send("Sorry, page not found!");
 });
 
 var port = 8080;
